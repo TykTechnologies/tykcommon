@@ -1,0 +1,7 @@
+.idea/
+.vagrant/
+tyk.conf
+logs/
+test.*.conf
+*.mprof
+lint_results.txt
