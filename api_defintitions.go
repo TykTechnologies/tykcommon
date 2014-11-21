@@ -44,7 +44,7 @@ type EventHandlerMetaConfig struct {
 
 // APIDefinition represents the configuration for a single proxied API and it's versions.
 type APIDefinition struct {
-	ID               bson.ObjectId `bson:"_id,omitempty" json:"id"`
+	Id               bson.ObjectId `bson:"_id,omitempty" json:"id"`
 	Name             string        `bson:"name" json:"name"`
 	APIID            string        `bson:"api_id" json:"api_id"`
 	OrgID            string        `bson:"org_id" json:"org_id"`
