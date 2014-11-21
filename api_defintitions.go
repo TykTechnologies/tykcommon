@@ -80,5 +80,7 @@ type APIDefinition struct {
 	SessionProvider SessionProviderMeta	`bson:"session_provider" json:"session_provider"`
 	EventHandlers EventHandlerMetaConfig `bson:"event_handlers" json:"event_handlers"`
 	EnableBatchRequestSupport bool	`bson:"enable_batch_request_support" json:"enable_batch_request_support"`
+	EnableIpWhiteListing bool `mapstructure:"enable_ip_whitelisting" bson:"enable_ip_whitelisting" json:"enable_ip_whitelisting"`
+	AllowedIPs []string `mapstructure:"allowed_ips" bson:"allowed_ips" json:"allowed_ips"`
 	RawData map[string]interface{} `bson:"raw_data,omitempty" json:"raw_data,omitempty"` // Not used in actual configuration, loaded by config for plugable arc
 }
