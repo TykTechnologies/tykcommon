@@ -11,6 +11,25 @@ type StorageEngineCode string
 type TykEvent string	// A type so we can ENUM event types easily, e.g. EVENT_QuotaExceeded
 type TykEventHandlerName string // A type for handler codes in API definitions
 
+type EndpointMethodAction string
+
+const (
+	NoAction EndpointMethodAction = "no_action"
+	Reply EndpointMethodAction = "reply"
+)
+
+type EndpointMethodMeta struct {
+	Action EndpointMethodAction	`bson:"action" json:"action"`
+	Code int	`bson:"code" json:"code"`
+	Data string	`bson:"data" json:"data"`
+	Headers map[string]string
+}
+
+type EndPointMeta struct {
+	Path string `bson:"path" json:"path"`
+	MethodActions map[string]EndpointMethodMeta `bson:"method_actions" json:"method_actions"`
+}
+
 type VersionInfo struct {
 	Name    string `bson:"name" json:"name"`
 	Expires string `bson:"expires" json:"expires"`
@@ -19,6 +38,12 @@ type VersionInfo struct {
 		WhiteList []string `bson:"white_list" json:"white_list"`
 		BlackList []string `bson:"black_list" json:"black_list"`
 	} `bson:"paths" json:"paths"`
+	UseExtendedPaths bool `bson:"use_extended_paths" json:"use_extended_paths"`
+	ExtendedPaths   struct {
+		Ignored   []EndPointMeta `bson:"ignored" json:"ignored"`
+		WhiteList []EndPointMeta `bson:"white_list" json:"white_list"`
+		BlackList []EndPointMeta `bson:"black_list" json:"black_list"`
+	} `bson:"extended_paths" json:"extended_paths"`
 }
 
 type AuthProviderMeta struct {
