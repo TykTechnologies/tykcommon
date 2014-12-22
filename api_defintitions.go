@@ -22,7 +22,7 @@ type EndpointMethodMeta struct {
 	Action EndpointMethodAction	`bson:"action" json:"action"`
 	Code int	`bson:"code" json:"code"`
 	Data string	`bson:"data" json:"data"`
-	Headers map[string]string
+	Headers map[string]string `bson:"headers" json:"headers"`
 }
 
 type EndPointMeta struct {
