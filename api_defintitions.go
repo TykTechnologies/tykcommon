@@ -3,6 +3,7 @@ package tykcommon
 import (
 	"github.com/RangelReale/osin"
 	"labix.org/v2/mgo/bson"
+	"encoding/base64"
 )
 
 type AuthProviderCode string
@@ -108,4 +109,35 @@ type APIDefinition struct {
 	EnableIpWhiteListing bool `mapstructure:"enable_ip_whitelisting" bson:"enable_ip_whitelisting" json:"enable_ip_whitelisting"`
 	AllowedIPs []string `mapstructure:"allowed_ips" bson:"allowed_ips" json:"allowed_ips"`
 	RawData map[string]interface{} `bson:"raw_data,omitempty" json:"raw_data,omitempty"` // Not used in actual configuration, loaded by config for plugable arc
+}
+
+// Clean will URL encode map[string]struct variables for saving
+func (a *APIDefinition) EncodeForDB() {
+	new_version := make(map[string]VersionInfo)
+	for k, v := range(a.VersionData.Versions) {
+		newK := base64.StdEncoding.EncodeToString([]byte(k))
+		v.Name = newK
+		new_version[newK] = v
+
+	}
+
+	a.VersionData.Versions = new_version
+	log.Warning(a.VersionData.Versions)
+}
+
+func (a *APIDefinition) DecodeFromDB() {
+	new_version := make(map[string]VersionInfo)
+	for k, v := range(a.VersionData.Versions) {
+		newK, decErr := base64.StdEncoding.DecodeString(k)
+		if decErr != nil {
+			log.Error("Couldn't Decode, leaving as it may be legacy...")
+			new_version[k] = v
+		} else {
+			v.Name = string(newK)
+			new_version[string(newK)] = v
+		}
+	}
+
+	a.VersionData.Versions = new_version
+	log.Warning(a.VersionData.Versions)
 }
