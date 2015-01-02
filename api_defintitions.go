@@ -122,7 +122,7 @@ func (a *APIDefinition) EncodeForDB() {
 	}
 
 	a.VersionData.Versions = new_version
-	log.Warning(a.VersionData.Versions)
+//	log.Warning(a.VersionData.Versions)
 }
 
 func (a *APIDefinition) DecodeFromDB() {
@@ -139,5 +139,5 @@ func (a *APIDefinition) DecodeFromDB() {
 	}
 
 	a.VersionData.Versions = new_version
-	log.Warning(a.VersionData.Versions)
+//	log.Warning(a.VersionData.Versions)
 }
