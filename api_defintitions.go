@@ -68,6 +68,11 @@ type EventHandlerMetaConfig struct {
 	Events map[TykEvent][]EventHandlerTriggerConfig `bson:"events" json:"events"`
 }
 
+type MiddlewareSection struct {
+	Pre []string `bson:"pre" json:"pre"`
+	Post []string `bson:"post" json:"post"`
+}
+
 // APIDefinition represents the configuration for a single proxied API and it's versions.
 type APIDefinition struct {
 	Id               bson.ObjectId `bson:"_id,omitempty" json:"id"`
@@ -100,6 +105,7 @@ type APIDefinition struct {
 		TargetURL       string `bson:"target_url" json:"target_url"`
 		StripListenPath bool   `bson:"strip_listen_path" json:"strip_listen_path"`
 	} `bson:"proxy" json:"proxy"`
+	CustomMiddleware MiddlewareSection `bson:"custom_middleware" json:"custom_middleware"`
 	SessionLifetime int64 `bson:"session_lifetime" json:"session_lifetime"`
 	Active  bool                   `bson:"active" json:"active"`
 	AuthProvider AuthProviderMeta	`bson:"auth_provider" json:"auth_provider"`

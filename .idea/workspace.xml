@@ -26,8 +26,8 @@
       <file leaf-file-name="api_defintitions.go" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api_defintitions.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.77982646" vertical-offset="1261" max-vertical-offset="2700">
-              <caret line="110" column="159" selection-start-line="110" selection-start-column="159" selection-end-line="110" selection-end-column="159" />
+            <state vertical-scroll-proportion="0.4243421" vertical-offset="1860" max-vertical-offset="3276">
+              <caret line="107" column="88" selection-start-line="107" selection-start-column="88" selection-end-line="107" selection-end-column="88" />
               <folding />
             </state>
           </provider>
@@ -84,8 +84,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -335,8 +335,8 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -359,6 +359,22 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/api_defintitions.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2310" max-vertical-offset="3150">
+          <caret line="110" column="159" selection-start-line="110" selection-start-column="159" selection-end-line="110" selection-end-column="159" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api_defintitions.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1261" max-vertical-offset="2700">
+          <caret line="110" column="159" selection-start-line="110" selection-start-column="159" selection-end-line="110" selection-end-column="159" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/api_defintitions.go">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1998" max-vertical-offset="2682">
@@ -496,8 +512,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api_defintitions.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.77982646" vertical-offset="1261" max-vertical-offset="2700">
-          <caret line="110" column="159" selection-start-line="110" selection-start-column="159" selection-end-line="110" selection-end-column="159" />
+        <state vertical-scroll-proportion="0.4243421" vertical-offset="1860" max-vertical-offset="3276">
+          <caret line="107" column="88" selection-start-line="107" selection-start-column="88" selection-end-line="107" selection-end-column="88" />
           <folding />
         </state>
       </provider>
