@@ -68,9 +68,14 @@ type EventHandlerMetaConfig struct {
 	Events map[TykEvent][]EventHandlerTriggerConfig `bson:"events" json:"events"`
 }
 
+type MiddlewareDefinition struct {
+	Name string `bson:"name" json:"name"`
+	Path string `bson:"path" json:"path"`
+}
+
 type MiddlewareSection struct {
-	Pre []string `bson:"pre" json:"pre"`
-	Post []string `bson:"post" json:"post"`
+	Pre []MiddlewareDefinition `bson:"pre" json:"pre"`
+	Post []MiddlewareDefinition `bson:"post" json:"post"`
 }
 
 // APIDefinition represents the configuration for a single proxied API and it's versions.
