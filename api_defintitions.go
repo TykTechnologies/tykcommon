@@ -82,7 +82,7 @@ type MiddlewareSection struct {
 
 type CacheOptions struct {
 	CacheTimeout int64 `bson:"cache_timeout" json:"cache_timeout"`
-	EenableCache bool  `bson:"enable_cache" json:"enable_cache"`
+	EnableCache  bool  `bson:"enable_cache" json:"enable_cache"`
 }
 
 // APIDefinition represents the configuration for a single proxied API and it's versions.
