@@ -1,33 +1,33 @@
 package tykcommon
 
 import (
+	"encoding/base64"
 	"github.com/RangelReale/osin"
 	"labix.org/v2/mgo/bson"
-	"encoding/base64"
 )
 
 type AuthProviderCode string
 type SessionProviderCode string
 type StorageEngineCode string
-type TykEvent string	// A type so we can ENUM event types easily, e.g. EVENT_QuotaExceeded
+type TykEvent string            // A type so we can ENUM event types easily, e.g. EVENT_QuotaExceeded
 type TykEventHandlerName string // A type for handler codes in API definitions
 
 type EndpointMethodAction string
 
 const (
 	NoAction EndpointMethodAction = "no_action"
-	Reply EndpointMethodAction = "reply"
+	Reply    EndpointMethodAction = "reply"
 )
 
 type EndpointMethodMeta struct {
-	Action EndpointMethodAction	`bson:"action" json:"action"`
-	Code int	`bson:"code" json:"code"`
-	Data string	`bson:"data" json:"data"`
-	Headers map[string]string `bson:"headers" json:"headers"`
+	Action  EndpointMethodAction `bson:"action" json:"action"`
+	Code    int                  `bson:"code" json:"code"`
+	Data    string               `bson:"data" json:"data"`
+	Headers map[string]string    `bson:"headers" json:"headers"`
 }
 
 type EndPointMeta struct {
-	Path string `bson:"path" json:"path"`
+	Path          string                        `bson:"path" json:"path"`
 	MethodActions map[string]EndpointMethodMeta `bson:"method_actions" json:"method_actions"`
 }
 
@@ -40,28 +40,29 @@ type VersionInfo struct {
 		BlackList []string `bson:"black_list" json:"black_list"`
 	} `bson:"paths" json:"paths"`
 	UseExtendedPaths bool `bson:"use_extended_paths" json:"use_extended_paths"`
-	ExtendedPaths   struct {
+	ExtendedPaths    struct {
 		Ignored   []EndPointMeta `bson:"ignored" json:"ignored"`
 		WhiteList []EndPointMeta `bson:"white_list" json:"white_list"`
 		BlackList []EndPointMeta `bson:"black_list" json:"black_list"`
+		Cached    []string       `bson:"cache" json:"cache"`
 	} `bson:"extended_paths" json:"extended_paths"`
 }
 
 type AuthProviderMeta struct {
-	Name AuthProviderCode	`bson:"name" json:"name"`
+	Name          AuthProviderCode  `bson:"name" json:"name"`
 	StorageEngine StorageEngineCode `bson:"storage_engine" json:"storage_engine"`
-	Meta interface{}		`bson:"meta" json:"meta"`
+	Meta          interface{}       `bson:"meta" json:"meta"`
 }
 
 type SessionProviderMeta struct {
-	Name SessionProviderCode	`bson:"name" json:"name"`
-	StorageEngine StorageEngineCode `bson:"storage_engine" json:"storage_engine"`
-	Meta interface{}			`bson:"meta" json:"meta"`
+	Name          SessionProviderCode `bson:"name" json:"name"`
+	StorageEngine StorageEngineCode   `bson:"storage_engine" json:"storage_engine"`
+	Meta          interface{}         `bson:"meta" json:"meta"`
 }
 
 type EventHandlerTriggerConfig struct {
-	Handler TykEventHandlerName	`bson:"handler_name" json:"handler_name"`
-	HandlerMeta interface{} `bson:"handler_meta" json:"handler_meta"`
+	Handler     TykEventHandlerName `bson:"handler_name" json:"handler_name"`
+	HandlerMeta interface{}         `bson:"handler_meta" json:"handler_meta"`
 }
 
 type EventHandlerMetaConfig struct {
@@ -69,14 +70,19 @@ type EventHandlerMetaConfig struct {
 }
 
 type MiddlewareDefinition struct {
-	Name string `bson:"name" json:"name"`
-	Path string `bson:"path" json:"path"`
-	RequireSession bool `bson:"require_session" json:"require_session"`
+	Name           string `bson:"name" json:"name"`
+	Path           string `bson:"path" json:"path"`
+	RequireSession bool   `bson:"require_session" json:"require_session"`
 }
 
 type MiddlewareSection struct {
-	Pre []MiddlewareDefinition `bson:"pre" json:"pre"`
+	Pre  []MiddlewareDefinition `bson:"pre" json:"pre"`
 	Post []MiddlewareDefinition `bson:"post" json:"post"`
+}
+
+type CacheOptions struct {
+	CacheTimeout int64 `bson:"cache_timeout" json:"cache_timeout"`
+	EenableCache bool  `bson:"enable_cache" json:"enable_cache"`
 }
 
 // APIDefinition represents the configuration for a single proxied API and it's versions.
@@ -111,24 +117,25 @@ type APIDefinition struct {
 		TargetURL       string `bson:"target_url" json:"target_url"`
 		StripListenPath bool   `bson:"strip_listen_path" json:"strip_listen_path"`
 	} `bson:"proxy" json:"proxy"`
-	CustomMiddleware MiddlewareSection `bson:"custom_middleware" json:"custom_middleware"`
-	SessionLifetime int64 `bson:"session_lifetime" json:"session_lifetime"`
-	Active  bool                   `bson:"active" json:"active"`
-	AuthProvider AuthProviderMeta	`bson:"auth_provider" json:"auth_provider"`
-	SessionProvider SessionProviderMeta	`bson:"session_provider" json:"session_provider"`
-	EventHandlers EventHandlerMetaConfig `bson:"event_handlers" json:"event_handlers"`
-	EnableBatchRequestSupport bool	`bson:"enable_batch_request_support" json:"enable_batch_request_support"`
-	EnableIpWhiteListing bool `mapstructure:"enable_ip_whitelisting" bson:"enable_ip_whitelisting" json:"enable_ip_whitelisting"`
-	AllowedIPs []string `mapstructure:"allowed_ips" bson:"allowed_ips" json:"allowed_ips"`
-    DontSetQuotasOnCreate bool `mapstructure:"dont_set_quota_on_create" bson:"dont_set_quota_on_create" json:"dont_set_quota_on_create"`
-	ExpireAnalyticsAfter int64 `mapstructure:"expire_analytics_after" bson:"expire_analytics_after" json:"expire_analytics_after"` // must have an expireAt TTL index set (http://docs.mongodb.org/manual/tutorial/expire-data/)
-	RawData map[string]interface{} `bson:"raw_data,omitempty" json:"raw_data,omitempty"` // Not used in actual configuration, loaded by config for plugable arc
+	CustomMiddleware          MiddlewareSection      `bson:"custom_middleware" json:"custom_middleware"`
+	CacheOptions              CacheOptions           `bson:"cache_options" json:"cache_options"`
+	SessionLifetime           int64                  `bson:"session_lifetime" json:"session_lifetime"`
+	Active                    bool                   `bson:"active" json:"active"`
+	AuthProvider              AuthProviderMeta       `bson:"auth_provider" json:"auth_provider"`
+	SessionProvider           SessionProviderMeta    `bson:"session_provider" json:"session_provider"`
+	EventHandlers             EventHandlerMetaConfig `bson:"event_handlers" json:"event_handlers"`
+	EnableBatchRequestSupport bool                   `bson:"enable_batch_request_support" json:"enable_batch_request_support"`
+	EnableIpWhiteListing      bool                   `mapstructure:"enable_ip_whitelisting" bson:"enable_ip_whitelisting" json:"enable_ip_whitelisting"`
+	AllowedIPs                []string               `mapstructure:"allowed_ips" bson:"allowed_ips" json:"allowed_ips"`
+	DontSetQuotasOnCreate     bool                   `mapstructure:"dont_set_quota_on_create" bson:"dont_set_quota_on_create" json:"dont_set_quota_on_create"`
+	ExpireAnalyticsAfter      int64                  `mapstructure:"expire_analytics_after" bson:"expire_analytics_after" json:"expire_analytics_after"` // must have an expireAt TTL index set (http://docs.mongodb.org/manual/tutorial/expire-data/)
+	RawData                   map[string]interface{} `bson:"raw_data,omitempty" json:"raw_data,omitempty"`                                               // Not used in actual configuration, loaded by config for plugable arc
 }
 
 // Clean will URL encode map[string]struct variables for saving
 func (a *APIDefinition) EncodeForDB() {
 	new_version := make(map[string]VersionInfo)
-	for k, v := range(a.VersionData.Versions) {
+	for k, v := range a.VersionData.Versions {
 		newK := base64.StdEncoding.EncodeToString([]byte(k))
 		v.Name = newK
 		new_version[newK] = v
@@ -136,12 +143,12 @@ func (a *APIDefinition) EncodeForDB() {
 	}
 
 	a.VersionData.Versions = new_version
-//	log.Warning(a.VersionData.Versions)
+	//	log.Warning(a.VersionData.Versions)
 }
 
 func (a *APIDefinition) DecodeFromDB() {
 	new_version := make(map[string]VersionInfo)
-	for k, v := range(a.VersionData.Versions) {
+	for k, v := range a.VersionData.Versions {
 		newK, decErr := base64.StdEncoding.DecodeString(k)
 		if decErr != nil {
 			log.Error("Couldn't Decode, leaving as it may be legacy...")
@@ -153,5 +160,5 @@ func (a *APIDefinition) DecodeFromDB() {
 	}
 
 	a.VersionData.Versions = new_version
-//	log.Warning(a.VersionData.Versions)
+	//	log.Warning(a.VersionData.Versions)
 }
