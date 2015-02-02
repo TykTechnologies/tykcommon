@@ -13,10 +13,17 @@ type TykEvent string            // A type so we can ENUM event types easily, e.g
 type TykEventHandlerName string // A type for handler codes in API definitions
 
 type EndpointMethodAction string
+type TemplateMode string 
 
 const (
 	NoAction EndpointMethodAction = "no_action"
 	Reply    EndpointMethodAction = "reply"
+    
+    UseBlob TemplateMode = "blob"
+    UseFile TemplateMode = "file"
+        
+    RequestXML RequestInputType = "xml"
+    RequestJSON RequestInputType = "json"
 )
 
 type EndpointMethodMeta struct {
@@ -29,6 +36,18 @@ type EndpointMethodMeta struct {
 type EndPointMeta struct {
 	Path          string                        `bson:"path" json:"path"`
 	MethodActions map[string]EndpointMethodMeta `bson:"method_actions" json:"method_actions"`
+}
+
+type RequestInputType string
+
+type TemplateMeta struct {
+    ApplyTemplate bool            `bson:"apply_template" json:"apply_template"`
+    TemplateData struct {  
+        Input RequestInputType `bson:"input_type" json:"input_type"`
+        Mode TemplateMode         `bson:"template_mode" json:"template_mode"`
+        TemplateSource string    `bson:"template_source" json:"template_source"`
+    } `bson:"template_data" json:"template_data"`
+    Path          string    
 }
 
 type VersionInfo struct {
@@ -45,6 +64,7 @@ type VersionInfo struct {
 		WhiteList []EndPointMeta `bson:"white_list" json:"white_list"`
 		BlackList []EndPointMeta `bson:"black_list" json:"black_list"`
 		Cached    []string       `bson:"cache" json:"cache"`
+        Transform []TemplateMeta    `bson:"transform" json:"transform"`
 	} `bson:"extended_paths" json:"extended_paths"`
 }
 
@@ -83,6 +103,7 @@ type MiddlewareSection struct {
 type CacheOptions struct {
 	CacheTimeout int64 `bson:"cache_timeout" json:"cache_timeout"`
 	EnableCache  bool  `bson:"enable_cache" json:"enable_cache"`
+    CacheAllSafeRequests bool `bson:"cache_all_safe_requests" json:"cache_all_safe_requests"`
 }
 
 // APIDefinition represents the configuration for a single proxied API and it's versions.
