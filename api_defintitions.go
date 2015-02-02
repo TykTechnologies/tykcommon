@@ -41,13 +41,18 @@ type EndPointMeta struct {
 type RequestInputType string
 
 type TemplateMeta struct {
-    ApplyTemplate bool            `bson:"apply_template" json:"apply_template"`
     TemplateData struct {  
         Input RequestInputType `bson:"input_type" json:"input_type"`
         Mode TemplateMode         `bson:"template_mode" json:"template_mode"`
         TemplateSource string    `bson:"template_source" json:"template_source"`
     } `bson:"template_data" json:"template_data"`
-    Path          string    
+    Path          string     `bson:"path" json:"path"`
+}
+
+type HeaderInjectionMeta struct {
+    DeleteHeaders []string `bson:"delete_headers" json:"delete_headers"`
+    AddHeaders map[string]string `bson:"add_headers" json:"add_headers"`
+    Path string `bson:"path" json:"path"`
 }
 
 type VersionInfo struct {
@@ -65,6 +70,7 @@ type VersionInfo struct {
 		BlackList []EndPointMeta `bson:"black_list" json:"black_list"`
 		Cached    []string       `bson:"cache" json:"cache"`
         Transform []TemplateMeta    `bson:"transform" json:"transform"`
+        TransformHeader []HeaderInjectionMeta `bson:"transform_headers" json:"transform_headers"`
 	} `bson:"extended_paths" json:"extended_paths"`
 }
 
