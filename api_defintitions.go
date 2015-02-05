@@ -35,7 +35,7 @@ type EndpointMethodMeta struct {
 
 type EndPointMeta struct {
 	Path          string                        `bson:"path" json:"path"`
-	MethodActions map[string]EndpointMethodMeta `bson:"method_actions" json:"method_actions"`
+    MethodActions map[string]EndpointMethodMeta `bson:"method_actions" json:"method_actions"`
 }
 
 type RequestInputType string
@@ -47,12 +47,14 @@ type TemplateMeta struct {
         TemplateSource string    `bson:"template_source" json:"template_source"`
     } `bson:"template_data" json:"template_data"`
     Path          string     `bson:"path" json:"path"`
+    Method string `bson:"method" json:"method"`
 }
 
 type HeaderInjectionMeta struct {
     DeleteHeaders []string `bson:"delete_headers" json:"delete_headers"`
     AddHeaders map[string]string `bson:"add_headers" json:"add_headers"`
     Path string `bson:"path" json:"path"`
+    Method string `bson:"method" json:"method"`
 }
 
 type VersionInfo struct {
