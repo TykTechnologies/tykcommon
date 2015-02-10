@@ -133,6 +133,7 @@ type APIDefinition struct {
 	UseBasicAuth            bool                 `bson:"use_basic_auth" json:"use_basic_auth"`
 	NotificationsDetails    NotificationsManager `bson:"notifications" json:"notifications"`
 	EnableSignatureChecking bool                 `bson:"enable_signature_checking" json:"enable_signature_checking"`
+    HmacAllowedClockSkew float64 `bson:"hmac_allowed_clock_skew" json:"hmac_allowed_clock_skew"`
 	VersionDefinition       struct {
 		Location string `bson:"location" json:"location"`
 		Key      string `bson:"key" json:"key"`
