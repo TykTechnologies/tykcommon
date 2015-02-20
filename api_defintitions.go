@@ -2,7 +2,7 @@ package tykcommon
 
 import (
 	"encoding/base64"
-	"github.com/RangelReale/osin"
+	"github.com/lonelycode/osin"
 	"labix.org/v2/mgo/bson"
 )
 
