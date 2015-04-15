@@ -129,6 +129,7 @@ type APIDefinition struct {
 		AuthorizeLoginRedirect string                      `bson:"auth_login_redirect" json:"auth_login_redirect"`
 	} `bson:"oauth_meta" json:"oauth_meta"`
 	Auth struct {
+		UseParam bool `mapstructure:"use_param" bson:"use_param" json:"use_param"`
 		AuthHeaderName string `mapstructure:"auth_header_name" bson:"auth_header_name" json:"auth_header_name"`
 	} `bson:"auth" json:"auth"`
 	UseBasicAuth            bool                 `bson:"use_basic_auth" json:"use_basic_auth"`
