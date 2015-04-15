@@ -112,6 +112,7 @@ type CacheOptions struct {
 	CacheTimeout int64 `bson:"cache_timeout" json:"cache_timeout"`
 	EnableCache  bool  `bson:"enable_cache" json:"enable_cache"`
     CacheAllSafeRequests bool `bson:"cache_all_safe_requests" json:"cache_all_safe_requests"`
+    EnableUpstreamCacheControl bool `bson:"enable_upstream_cache_control" json:"enable_upstream_cache_control"`
 }
 
 // APIDefinition represents the configuration for a single proxied API and it's versions.
