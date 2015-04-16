@@ -119,6 +119,7 @@ type CacheOptions struct {
 type APIDefinition struct {
 	Id               bson.ObjectId `bson:"_id,omitempty" json:"id,omitempty"`
 	Name             string        `bson:"name" json:"name"`
+	Slug             string        `bson:"slug" json:"slug"`
 	APIID            string        `bson:"api_id" json:"api_id"`
 	OrgID            string        `bson:"org_id" json:"org_id"`
 	UseKeylessAccess bool          `bson:"use_keyless" json:"use_keyless"`
