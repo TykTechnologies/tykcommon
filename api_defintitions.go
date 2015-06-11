@@ -13,17 +13,17 @@ type TykEvent string            // A type so we can ENUM event types easily, e.g
 type TykEventHandlerName string // A type for handler codes in API definitions
 
 type EndpointMethodAction string
-type TemplateMode string 
+type TemplateMode string
 
 const (
 	NoAction EndpointMethodAction = "no_action"
 	Reply    EndpointMethodAction = "reply"
-    
-    UseBlob TemplateMode = "blob"
-    UseFile TemplateMode = "file"
-        
-    RequestXML RequestInputType = "xml"
-    RequestJSON RequestInputType = "json"
+
+	UseBlob TemplateMode = "blob"
+	UseFile TemplateMode = "file"
+
+	RequestXML  RequestInputType = "xml"
+	RequestJSON RequestInputType = "json"
 )
 
 type EndpointMethodMeta struct {
@@ -35,26 +35,27 @@ type EndpointMethodMeta struct {
 
 type EndPointMeta struct {
 	Path          string                        `bson:"path" json:"path"`
-    MethodActions map[string]EndpointMethodMeta `bson:"method_actions" json:"method_actions"`
+	MethodActions map[string]EndpointMethodMeta `bson:"method_actions" json:"method_actions"`
 }
 
 type RequestInputType string
 
 type TemplateMeta struct {
-    TemplateData struct {  
-        Input RequestInputType `bson:"input_type" json:"input_type"`
-        Mode TemplateMode         `bson:"template_mode" json:"template_mode"`
-        TemplateSource string    `bson:"template_source" json:"template_source"`
-    } `bson:"template_data" json:"template_data"`
-    Path          string     `bson:"path" json:"path"`
-    Method string `bson:"method" json:"method"`
+	TemplateData struct {
+		Input          RequestInputType `bson:"input_type" json:"input_type"`
+		Mode           TemplateMode     `bson:"template_mode" json:"template_mode"`
+		TemplateSource string           `bson:"template_source" json:"template_source"`
+	} `bson:"template_data" json:"template_data"`
+	Path   string `bson:"path" json:"path"`
+	Method string `bson:"method" json:"method"`
 }
 
 type HeaderInjectionMeta struct {
-    DeleteHeaders []string `bson:"delete_headers" json:"delete_headers"`
-    AddHeaders map[string]string `bson:"add_headers" json:"add_headers"`
-    Path string `bson:"path" json:"path"`
-    Method string `bson:"method" json:"method"`
+	DeleteHeaders []string          `bson:"delete_headers" json:"delete_headers"`
+	AddHeaders    map[string]string `bson:"add_headers" json:"add_headers"`
+	Path          string            `bson:"path" json:"path"`
+	Method        string            `bson:"method" json:"method"`
+	ActOnResponse bool              `bson:"act_on" json:"act_on"`
 }
 
 type VersionInfo struct {
@@ -67,12 +68,14 @@ type VersionInfo struct {
 	} `bson:"paths" json:"paths"`
 	UseExtendedPaths bool `bson:"use_extended_paths" json:"use_extended_paths"`
 	ExtendedPaths    struct {
-		Ignored   []EndPointMeta `bson:"ignored" json:"ignored"`
-		WhiteList []EndPointMeta `bson:"white_list" json:"white_list"`
-		BlackList []EndPointMeta `bson:"black_list" json:"black_list"`
-		Cached    []string       `bson:"cache" json:"cache"`
-        Transform []TemplateMeta    `bson:"transform" json:"transform"`
-        TransformHeader []HeaderInjectionMeta `bson:"transform_headers" json:"transform_headers"`
+		Ignored                 []EndPointMeta        `bson:"ignored" json:"ignored"`
+		WhiteList               []EndPointMeta        `bson:"white_list" json:"white_list"`
+		BlackList               []EndPointMeta        `bson:"black_list" json:"black_list"`
+		Cached                  []string              `bson:"cache" json:"cache"`
+		Transform               []TemplateMeta        `bson:"transform" json:"transform"`
+		TransformResponse       []TemplateMeta        `bson:"transform_response" json:"transform_response"`
+		TransformHeader         []HeaderInjectionMeta `bson:"transform_headers" json:"transform_headers"`
+		TransformResponseHeader []HeaderInjectionMeta `bson:"transform_response_headers" json:"transform_response_headers"`
 	} `bson:"extended_paths" json:"extended_paths"`
 }
 
@@ -109,10 +112,15 @@ type MiddlewareSection struct {
 }
 
 type CacheOptions struct {
-	CacheTimeout int64 `bson:"cache_timeout" json:"cache_timeout"`
-	EnableCache  bool  `bson:"enable_cache" json:"enable_cache"`
-    CacheAllSafeRequests bool `bson:"cache_all_safe_requests" json:"cache_all_safe_requests"`
-    EnableUpstreamCacheControl bool `bson:"enable_upstream_cache_control" json:"enable_upstream_cache_control"`
+	CacheTimeout               int64 `bson:"cache_timeout" json:"cache_timeout"`
+	EnableCache                bool  `bson:"enable_cache" json:"enable_cache"`
+	CacheAllSafeRequests       bool  `bson:"cache_all_safe_requests" json:"cache_all_safe_requests"`
+	EnableUpstreamCacheControl bool  `bson:"enable_upstream_cache_control" json:"enable_upstream_cache_control"`
+}
+
+type ResponseProcessor struct {
+	Name    string      `bson:"name" json:"name"`
+	Options interface{} `bson:"options" json:"options"`
 }
 
 // APIDefinition represents the configuration for a single proxied API and it's versions.
@@ -130,13 +138,13 @@ type APIDefinition struct {
 		AuthorizeLoginRedirect string                      `bson:"auth_login_redirect" json:"auth_login_redirect"`
 	} `bson:"oauth_meta" json:"oauth_meta"`
 	Auth struct {
-		UseParam bool `mapstructure:"use_param" bson:"use_param" json:"use_param"`
+		UseParam       bool   `mapstructure:"use_param" bson:"use_param" json:"use_param"`
 		AuthHeaderName string `mapstructure:"auth_header_name" bson:"auth_header_name" json:"auth_header_name"`
 	} `bson:"auth" json:"auth"`
 	UseBasicAuth            bool                 `bson:"use_basic_auth" json:"use_basic_auth"`
 	NotificationsDetails    NotificationsManager `bson:"notifications" json:"notifications"`
 	EnableSignatureChecking bool                 `bson:"enable_signature_checking" json:"enable_signature_checking"`
-    HmacAllowedClockSkew float64 `bson:"hmac_allowed_clock_skew" json:"hmac_allowed_clock_skew"`
+	HmacAllowedClockSkew    float64              `bson:"hmac_allowed_clock_skew" json:"hmac_allowed_clock_skew"`
 	VersionDefinition       struct {
 		Location string `bson:"location" json:"location"`
 		Key      string `bson:"key" json:"key"`
@@ -162,7 +170,8 @@ type APIDefinition struct {
 	AllowedIPs                []string               `mapstructure:"allowed_ips" bson:"allowed_ips" json:"allowed_ips"`
 	DontSetQuotasOnCreate     bool                   `mapstructure:"dont_set_quota_on_create" bson:"dont_set_quota_on_create" json:"dont_set_quota_on_create"`
 	ExpireAnalyticsAfter      int64                  `mapstructure:"expire_analytics_after" bson:"expire_analytics_after" json:"expire_analytics_after"` // must have an expireAt TTL index set (http://docs.mongodb.org/manual/tutorial/expire-data/)
-	RawData                   map[string]interface{} `bson:"raw_data,omitempty" json:"raw_data,omitempty"`                                               // Not used in actual configuration, loaded by config for plugable arc
+	ResponseProcessors        []ResponseProcessor    `bson:"response_processors" json:"response_processors"`
+	RawData                   map[string]interface{} `bson:"raw_data,omitempty" json:"raw_data,omitempty"` // Not used in actual configuration, loaded by config for plugable arc
 }
 
 // Clean will URL encode map[string]struct variables for saving
