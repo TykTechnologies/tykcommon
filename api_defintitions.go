@@ -3,7 +3,7 @@ package tykcommon
 import (
 	"encoding/base64"
 	"github.com/lonelycode/osin"
-	"labix.org/v2/mgo/bson"
+	"gopkg.in/mgo.v2/bson"
 )
 
 type AuthProviderCode string
