@@ -58,6 +58,12 @@ type HeaderInjectionMeta struct {
 	ActOnResponse bool              `bson:"act_on" json:"act_on"`
 }
 
+type HardTimeoutMeta struct {
+	Path    string `bson:"path" json:"path"`
+	Method  string `bson:"method" json:"method"`
+	TimeOut int    `bson:"timeout" json:"timeout"`
+}
+
 type VersionInfo struct {
 	Name    string `bson:"name" json:"name"`
 	Expires string `bson:"expires" json:"expires"`
@@ -76,6 +82,7 @@ type VersionInfo struct {
 		TransformResponse       []TemplateMeta        `bson:"transform_response" json:"transform_response"`
 		TransformHeader         []HeaderInjectionMeta `bson:"transform_headers" json:"transform_headers"`
 		TransformResponseHeader []HeaderInjectionMeta `bson:"transform_response_headers" json:"transform_response_headers"`
+		HardTimeouts            []HardTimeoutMeta     `bson:"hard_timeouts" json:"hard_timeouts"`
 	} `bson:"extended_paths" json:"extended_paths"`
 }
 
