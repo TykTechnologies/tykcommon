@@ -161,9 +161,21 @@ type APIDefinition struct {
 		Versions     map[string]VersionInfo `bson:"versions" json:"versions"`
 	} `bson:"version_data" json:"version_data"`
 	Proxy struct {
-		ListenPath      string `bson:"listen_path" json:"listen_path"`
-		TargetURL       string `bson:"target_url" json:"target_url"`
-		StripListenPath bool   `bson:"strip_listen_path" json:"strip_listen_path"`
+		ListenPath          string   `bson:"listen_path" json:"listen_path"`
+		TargetURL           string   `bson:"target_url" json:"target_url"`
+		StripListenPath     bool     `bson:"strip_listen_path" json:"strip_listen_path"`
+		EnableLoadBalancing bool     `bson:"enable_load_balancing" json:"enable_load_balancing"`
+		TargetList          []string `bson:"target_list" json:"target_list"`
+		ServiceDiscovery    struct {
+			UseDiscoveryService bool   `bson:"use_discovery_service" json:"use_discovery_service"`
+			QueryEndpoint       string `bson:"query_endpoint" json:"query_endpoint"`
+			UseNestedQuery      bool   `bson:"use_nested_query" json:"use_nested_query"`
+			ParentDataPath      string `bson:"parent_data_path" json:"parent_data_path"`
+			DataPath            string `bson:"data_path" json:"data_path"`
+			PortDataPath        string `bson:"port_data_path" json:"port_data_path"`
+			UseTargetList       bool   `bson:"use_target_list" json:"use_target_list"`
+			CacheTimeout        int64  `bson:"cache_timeout" json:"cache_timeout"`
+		} `bson:"service_discovery" json:"service_discovery"`
 	} `bson:"proxy" json:"proxy"`
 	CustomMiddleware          MiddlewareSection      `bson:"custom_middleware" json:"custom_middleware"`
 	CacheOptions              CacheOptions           `bson:"cache_options" json:"cache_options"`
