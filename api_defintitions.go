@@ -64,6 +64,14 @@ type HardTimeoutMeta struct {
 	TimeOut int    `bson:"timeout" json:"timeout"`
 }
 
+type CircuitBreakerMeta struct {
+	Path                 string  `bson:"path" json:"path"`
+	Method               string  `bson:"method" json:"method"`
+	ThresholdPercent     float64 `bson:"threshold_percent" json:"threshold_percent"`
+	Samples              int64   `bson:"samples" json:"samples"`
+	ReturnToServiceAfter int     `bson:"return_to_service_after" json:"return_to_service_after"`
+}
+
 type VersionInfo struct {
 	Name    string `bson:"name" json:"name"`
 	Expires string `bson:"expires" json:"expires"`
@@ -83,6 +91,7 @@ type VersionInfo struct {
 		TransformHeader         []HeaderInjectionMeta `bson:"transform_headers" json:"transform_headers"`
 		TransformResponseHeader []HeaderInjectionMeta `bson:"transform_response_headers" json:"transform_response_headers"`
 		HardTimeouts            []HardTimeoutMeta     `bson:"hard_timeouts" json:"hard_timeouts"`
+		CircuitBreaker          []CircuitBreakerMeta  `bson:"circuit_breakers" json:"circuit_breakers"`
 	} `bson:"extended_paths" json:"extended_paths"`
 }
 
