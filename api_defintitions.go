@@ -72,6 +72,13 @@ type CircuitBreakerMeta struct {
 	ReturnToServiceAfter int     `bson:"return_to_service_after" json:"return_to_service_after"`
 }
 
+type URLRewriteMeta struct {
+	Path         string `bson:"path" json:"path"`
+	Method       string `bson:"method" json:"method"`
+	MatchPattern string `bson:"match_pattern" json:"match_pattern"`
+	RewriteTo    string `bson:"rewrite_to" json:"rewrite_to"`
+}
+
 type VersionInfo struct {
 	Name    string `bson:"name" json:"name"`
 	Expires string `bson:"expires" json:"expires"`
@@ -92,6 +99,7 @@ type VersionInfo struct {
 		TransformResponseHeader []HeaderInjectionMeta `bson:"transform_response_headers" json:"transform_response_headers"`
 		HardTimeouts            []HardTimeoutMeta     `bson:"hard_timeouts" json:"hard_timeouts"`
 		CircuitBreaker          []CircuitBreakerMeta  `bson:"circuit_breakers" json:"circuit_breakers"`
+		URLRewrite              []URLRewriteMeta      `bson:"url_rewrites" json:"url_rewrites"`
 	} `bson:"extended_paths" json:"extended_paths"`
 }
 
