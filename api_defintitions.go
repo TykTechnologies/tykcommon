@@ -79,6 +79,15 @@ type URLRewriteMeta struct {
 	RewriteTo    string `bson:"rewrite_to" json:"rewrite_to"`
 }
 
+type VirtualMeta struct {
+	ResponseFunctionName string `bson:"response_function_name" json:"response_function_name"`
+	FunctionSourceType   string `bson:"function_source_type" json:"function_source_type"`
+	FunctionSourceURI    string `bson:"function_source_uri" json:"function_source_uri"`
+	Path                 string `bson:"path" json:"path"`
+	Method               string `bson:"method" json:"method"`
+	UseSession           bool   `bson:"use_session" json:"use_session"`
+}
+
 type VersionInfo struct {
 	Name    string `bson:"name" json:"name"`
 	Expires string `bson:"expires" json:"expires"`
@@ -100,6 +109,7 @@ type VersionInfo struct {
 		HardTimeouts            []HardTimeoutMeta     `bson:"hard_timeouts" json:"hard_timeouts"`
 		CircuitBreaker          []CircuitBreakerMeta  `bson:"circuit_breakers" json:"circuit_breakers"`
 		URLRewrite              []URLRewriteMeta      `bson:"url_rewrites" json:"url_rewrites"`
+		Virtual                 []VirtualMeta         `bson:"virtual" json:"virtual"`
 	} `bson:"extended_paths" json:"extended_paths"`
 }
 
