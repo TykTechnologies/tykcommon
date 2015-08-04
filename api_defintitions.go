@@ -219,6 +219,17 @@ type APIDefinition struct {
 	DontSetQuotasOnCreate     bool                   `mapstructure:"dont_set_quota_on_create" bson:"dont_set_quota_on_create" json:"dont_set_quota_on_create"`
 	ExpireAnalyticsAfter      int64                  `mapstructure:"expire_analytics_after" bson:"expire_analytics_after" json:"expire_analytics_after"` // must have an expireAt TTL index set (http://docs.mongodb.org/manual/tutorial/expire-data/)
 	ResponseProcessors        []ResponseProcessor    `bson:"response_processors" json:"response_processors"`
+	CORS struct {
+		Enable             bool     `bson:"enable" json:"enable"`
+		AllowedOrigins     []string `bson:"allowed_origins" json:"allowed_origins"`
+		AllowedMethods     []string `bson:"allowed_methods" json:"allowed_methods"`
+		AllowedHeaders     []string `bson:"allowed_headers" json:"allowed_headers"`
+		ExposedHeaders     []string `bson:"exposed_headers" json:"exposed_headers"`
+		AllowCredentials   bool     `bson:"allow_credentials" json:"allow_credentials"`
+		MaxAge             int      `bson:"max_age" json:"max_age"`
+		OptionsPassthrough bool     `bson:"options_pasthrough" json:"options_pasthrough"`
+		Debug              bool     `bson:"debug" json:"debug"`
+	} `bson:"CORS" json:"CORS"`
 	RawData                   map[string]interface{} `bson:"raw_data,omitempty" json:"raw_data,omitempty"` // Not used in actual configuration, loaded by config for plugable arc
 }
 
