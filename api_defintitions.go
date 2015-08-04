@@ -141,8 +141,9 @@ type MiddlewareDefinition struct {
 }
 
 type MiddlewareSection struct {
-	Pre  []MiddlewareDefinition `bson:"pre" json:"pre"`
-	Post []MiddlewareDefinition `bson:"post" json:"post"`
+	Pre      []MiddlewareDefinition `bson:"pre" json:"pre"`
+	Post     []MiddlewareDefinition `bson:"post" json:"post"`
+	Response []MiddlewareDefinition `bson:"response" json:"response"`
 }
 
 type CacheOptions struct {
@@ -173,6 +174,7 @@ type APIDefinition struct {
 	} `bson:"oauth_meta" json:"oauth_meta"`
 	Auth struct {
 		UseParam       bool   `mapstructure:"use_param" bson:"use_param" json:"use_param"`
+		UseCookie      bool   `mapstructure:"use_cookie" bson:"use_cookie" json:"use_cookie"`
 		AuthHeaderName string `mapstructure:"auth_header_name" bson:"auth_header_name" json:"auth_header_name"`
 	} `bson:"auth" json:"auth"`
 	UseBasicAuth            bool                 `bson:"use_basic_auth" json:"use_basic_auth"`
