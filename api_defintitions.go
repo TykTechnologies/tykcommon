@@ -205,6 +205,7 @@ type APIDefinition struct {
 			PortDataPath        string `bson:"port_data_path" json:"port_data_path"`
 			UseTargetList       bool   `bson:"use_target_list" json:"use_target_list"`
 			CacheTimeout        int64  `bson:"cache_timeout" json:"cache_timeout"`
+			EndpointReturnsList bool   `bson:"endpoint_returns_list" json:"endpoint_returns_list"`
 		} `bson:"service_discovery" json:"service_discovery"`
 	} `bson:"proxy" json:"proxy"`
 	CustomMiddleware          MiddlewareSection      `bson:"custom_middleware" json:"custom_middleware"`
