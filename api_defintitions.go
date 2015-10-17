@@ -112,6 +112,7 @@ type VersionInfo struct {
 		URLRewrite              []URLRewriteMeta      `bson:"url_rewrites" json:"url_rewrites"`
 		Virtual                 []VirtualMeta         `bson:"virtual" json:"virtual"`
 	} `bson:"extended_paths" json:"extended_paths"`
+	GlobalHeaders map[string]string `bson:"global_headers" json:"global_headers"`
 }
 
 type AuthProviderMeta struct {
