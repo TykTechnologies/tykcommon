@@ -65,6 +65,12 @@ type HardTimeoutMeta struct {
 	TimeOut int    `bson:"timeout" json:"timeout"`
 }
 
+type RequestSizeMeta struct {
+	Path      string `bson:"path" json:"path"`
+	Method    string `bson:"method" json:"method"`
+	SizeLimit int64  `bson:"size_limit" json:"size_limit"`
+}
+
 type CircuitBreakerMeta struct {
 	Path                 string  `bson:"path" json:"path"`
 	Method               string  `bson:"method" json:"method"`
@@ -111,8 +117,10 @@ type VersionInfo struct {
 		CircuitBreaker          []CircuitBreakerMeta  `bson:"circuit_breakers" json:"circuit_breakers"`
 		URLRewrite              []URLRewriteMeta      `bson:"url_rewrites" json:"url_rewrites"`
 		Virtual                 []VirtualMeta         `bson:"virtual" json:"virtual"`
+		SizeLimit               []RequestSizeMeta     `bson:"size_limits" json:"size_limits"`
 	} `bson:"extended_paths" json:"extended_paths"`
-	GlobalHeaders map[string]string `bson:"global_headers" json:"global_headers"`
+	GlobalHeaders   map[string]string `bson:"global_headers" json:"global_headers"`
+	GlobalSizeLimit int64             `bson:"global_size_limit" json:"global_size_limit"`
 }
 
 type AuthProviderMeta struct {
