@@ -211,8 +211,7 @@ type APIDefinition struct {
 	UptimeTests struct {
 		CheckList []HostCheckObject `bson:"check_list" json:"check_list"`
 		Config    struct {
-			FailureTriggerSampleSize int
-			TimeWait                 int64
+			ExpireUptimeAnalyticsAfter int64 `bson:"expire_utime_after" json:"expire_utime_after"` // must have an expireAt TTL index set (http://docs.mongodb.org/manual/tutorial/expire-data/)
 		}
 	} `bson:"uptime_tests" json:"uptime_tests"`
 	Proxy struct {
