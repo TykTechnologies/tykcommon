@@ -168,6 +168,13 @@ type ResponseProcessor struct {
 	Options interface{} `bson:"options" json:"options"`
 }
 
+type HostCheckObject struct {
+	CheckURL string            `bson:"url" json:"url"`
+	Method   string            `bson:"method" json:"method"`
+	Headers  map[string]string `bson:"headers" json:"headers"`
+	Body     string            `bson:"body" json:"body"`
+}
+
 // APIDefinition represents the configuration for a single proxied API and it's versions.
 type APIDefinition struct {
 	Id               bson.ObjectId `bson:"_id,omitempty" json:"id,omitempty"`
@@ -201,13 +208,21 @@ type APIDefinition struct {
 		NotVersioned bool                   `bson:"not_versioned" json:"not_versioned"`
 		Versions     map[string]VersionInfo `bson:"versions" json:"versions"`
 	} `bson:"version_data" json:"version_data"`
+	UptimeTests struct {
+		CheckList []HostCheckObject `bson:"check_list" json:"check_list"`
+		Config    struct {
+			FailureTriggerSampleSize int
+			TimeWait                 int64
+		}
+	} `bson:"uptime_tests" json:"uptime_tests"`
 	Proxy struct {
-		ListenPath          string   `bson:"listen_path" json:"listen_path"`
-		TargetURL           string   `bson:"target_url" json:"target_url"`
-		StripListenPath     bool     `bson:"strip_listen_path" json:"strip_listen_path"`
-		EnableLoadBalancing bool     `bson:"enable_load_balancing" json:"enable_load_balancing"`
-		TargetList          []string `bson:"target_list" json:"target_list"`
-		ServiceDiscovery    struct {
+		ListenPath                  string   `bson:"listen_path" json:"listen_path"`
+		TargetURL                   string   `bson:"target_url" json:"target_url"`
+		StripListenPath             bool     `bson:"strip_listen_path" json:"strip_listen_path"`
+		EnableLoadBalancing         bool     `bson:"enable_load_balancing" json:"enable_load_balancing"`
+		TargetList                  []string `bson:"target_list" json:"target_list"`
+		CheckHostAgainstUptimeTests bool     `bson:"check_host_against_uptime_tests" json:"check_host_against_uptime_tests"`
+		ServiceDiscovery            struct {
 			UseDiscoveryService bool   `bson:"use_discovery_service" json:"use_discovery_service"`
 			QueryEndpoint       string `bson:"query_endpoint" json:"query_endpoint"`
 			UseNestedQuery      bool   `bson:"use_nested_query" json:"use_nested_query"`
