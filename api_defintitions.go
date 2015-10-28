@@ -175,6 +175,18 @@ type HostCheckObject struct {
 	Body     string            `bson:"body" json:"body"`
 }
 
+type ServiceDiscoveryConfiguration struct {
+	UseDiscoveryService bool   `bson:"use_discovery_service" json:"use_discovery_service"`
+	QueryEndpoint       string `bson:"query_endpoint" json:"query_endpoint"`
+	UseNestedQuery      bool   `bson:"use_nested_query" json:"use_nested_query"`
+	ParentDataPath      string `bson:"parent_data_path" json:"parent_data_path"`
+	DataPath            string `bson:"data_path" json:"data_path"`
+	PortDataPath        string `bson:"port_data_path" json:"port_data_path"`
+	UseTargetList       bool   `bson:"use_target_list" json:"use_target_list"`
+	CacheTimeout        int64  `bson:"cache_timeout" json:"cache_timeout"`
+	EndpointReturnsList bool   `bson:"endpoint_returns_list" json:"endpoint_returns_list"`
+}
+
 // APIDefinition represents the configuration for a single proxied API and it's versions.
 type APIDefinition struct {
 	Id               bson.ObjectId `bson:"_id,omitempty" json:"id,omitempty"`
@@ -211,27 +223,19 @@ type APIDefinition struct {
 	UptimeTests struct {
 		CheckList []HostCheckObject `bson:"check_list" json:"check_list"`
 		Config    struct {
-			ExpireUptimeAnalyticsAfter int64 `bson:"expire_utime_after" json:"expire_utime_after"` // must have an expireAt TTL index set (http://docs.mongodb.org/manual/tutorial/expire-data/)
-		}
+			ExpireUptimeAnalyticsAfter int64                         `bson:"expire_utime_after" json:"expire_utime_after"` // must have an expireAt TTL index set (http://docs.mongodb.org/manual/tutorial/expire-data/)
+			ServiceDiscovery           ServiceDiscoveryConfiguration `bson:"service_discovery" json:"service_discovery"`
+			RecheckWait                int                           `bson:"recheck_wait" json:"recheck_wait"`
+		} `bson:"config" json:"config"`
 	} `bson:"uptime_tests" json:"uptime_tests"`
 	Proxy struct {
-		ListenPath                  string   `bson:"listen_path" json:"listen_path"`
-		TargetURL                   string   `bson:"target_url" json:"target_url"`
-		StripListenPath             bool     `bson:"strip_listen_path" json:"strip_listen_path"`
-		EnableLoadBalancing         bool     `bson:"enable_load_balancing" json:"enable_load_balancing"`
-		TargetList                  []string `bson:"target_list" json:"target_list"`
-		CheckHostAgainstUptimeTests bool     `bson:"check_host_against_uptime_tests" json:"check_host_against_uptime_tests"`
-		ServiceDiscovery            struct {
-			UseDiscoveryService bool   `bson:"use_discovery_service" json:"use_discovery_service"`
-			QueryEndpoint       string `bson:"query_endpoint" json:"query_endpoint"`
-			UseNestedQuery      bool   `bson:"use_nested_query" json:"use_nested_query"`
-			ParentDataPath      string `bson:"parent_data_path" json:"parent_data_path"`
-			DataPath            string `bson:"data_path" json:"data_path"`
-			PortDataPath        string `bson:"port_data_path" json:"port_data_path"`
-			UseTargetList       bool   `bson:"use_target_list" json:"use_target_list"`
-			CacheTimeout        int64  `bson:"cache_timeout" json:"cache_timeout"`
-			EndpointReturnsList bool   `bson:"endpoint_returns_list" json:"endpoint_returns_list"`
-		} `bson:"service_discovery" json:"service_discovery"`
+		ListenPath                  string                        `bson:"listen_path" json:"listen_path"`
+		TargetURL                   string                        `bson:"target_url" json:"target_url"`
+		StripListenPath             bool                          `bson:"strip_listen_path" json:"strip_listen_path"`
+		EnableLoadBalancing         bool                          `bson:"enable_load_balancing" json:"enable_load_balancing"`
+		TargetList                  []string                      `bson:"target_list" json:"target_list"`
+		CheckHostAgainstUptimeTests bool                          `bson:"check_host_against_uptime_tests" json:"check_host_against_uptime_tests"`
+		ServiceDiscovery            ServiceDiscoveryConfiguration `bson:"service_discovery" json:"service_discovery"`
 	} `bson:"proxy" json:"proxy"`
 	CustomMiddleware          MiddlewareSection      `bson:"custom_middleware" json:"custom_middleware"`
 	CacheOptions              CacheOptions           `bson:"cache_options" json:"cache_options"`
