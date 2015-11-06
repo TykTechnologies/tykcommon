@@ -119,8 +119,9 @@ type VersionInfo struct {
 		Virtual                 []VirtualMeta         `bson:"virtual" json:"virtual"`
 		SizeLimit               []RequestSizeMeta     `bson:"size_limits" json:"size_limits"`
 	} `bson:"extended_paths" json:"extended_paths"`
-	GlobalHeaders   map[string]string `bson:"global_headers" json:"global_headers"`
-	GlobalSizeLimit int64             `bson:"global_size_limit" json:"global_size_limit"`
+	GlobalHeaders       map[string]string `bson:"global_headers" json:"global_headers"`
+	GlobalHeadersRemove []string          `bson:"global_headers_remove" json:"global_headers_remove"`
+	GlobalSizeLimit     int64             `bson:"global_size_limit" json:"global_size_limit"`
 }
 
 type AuthProviderMeta struct {
@@ -261,6 +262,7 @@ type APIDefinition struct {
 		OptionsPassthrough bool     `bson:"options_passthrough" json:"options_passthrough"`
 		Debug              bool     `bson:"debug" json:"debug"`
 	} `bson:"CORS" json:"CORS"`
+	Domain  string                 `bson:"domain" json:"domain"`
 	Tags    []string               `bson:"tags" json:"tags"`
 	RawData map[string]interface{} `bson:"raw_data,omitempty" json:"raw_data,omitempty"` // Not used in actual configuration, loaded by config for plugable arc
 }
