@@ -262,9 +262,10 @@ type APIDefinition struct {
 		OptionsPassthrough bool     `bson:"options_passthrough" json:"options_passthrough"`
 		Debug              bool     `bson:"debug" json:"debug"`
 	} `bson:"CORS" json:"CORS"`
-	Domain  string                 `bson:"domain" json:"domain"`
-	Tags    []string               `bson:"tags" json:"tags"`
-	RawData map[string]interface{} `bson:"raw_data,omitempty" json:"raw_data,omitempty"` // Not used in actual configuration, loaded by config for plugable arc
+	Domain     string                 `bson:"domain" json:"domain"`
+	DoNotTrack bool                   `bson:"do_not_track" json:"do_not_track"`
+	Tags       []string               `bson:"tags" json:"tags"`
+	RawData    map[string]interface{} `bson:"raw_data,omitempty" json:"raw_data,omitempty"` // Not used in actual configuration, loaded by config for plugable arc
 }
 
 // Clean will URL encode map[string]struct variables for saving
