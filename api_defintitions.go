@@ -122,6 +122,7 @@ type VersionInfo struct {
 	GlobalHeaders       map[string]string `bson:"global_headers" json:"global_headers"`
 	GlobalHeadersRemove []string          `bson:"global_headers_remove" json:"global_headers_remove"`
 	GlobalSizeLimit     int64             `bson:"global_size_limit" json:"global_size_limit"`
+	OverrideTarget      string            `bson:"override_target" json:"override_target"`
 }
 
 type AuthProviderMeta struct {
