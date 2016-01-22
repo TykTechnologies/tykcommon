@@ -211,6 +211,9 @@ type APIDefinition struct {
 	UseBasicAuth            bool                 `bson:"use_basic_auth" json:"use_basic_auth"`
 	EnableJWT               bool                 `bson:"enable_jwt" json:"enable_jwt"`
 	JWTSigningMethod        string               `bson:"jwt_signing_method" json:"jwt_signing_method"`
+	JWTSource               string               `bson:"jwt_source" json:"jwt_source"`
+	JWTIdentityBaseField    string               `bson:"jwt_identity_base_field" json:"jwt_identity_base_field"`
+	JWTPolicyFieldName      string               `bson:"jwt_policy_field_name" json:"jwt_policy_field_name"`
 	NotificationsDetails    NotificationsManager `bson:"notifications" json:"notifications"`
 	EnableSignatureChecking bool                 `bson:"enable_signature_checking" json:"enable_signature_checking"`
 	HmacAllowedClockSkew    float64              `bson:"hmac_allowed_clock_skew" json:"hmac_allowed_clock_skew"`
