@@ -234,6 +234,7 @@ type APIDefinition struct {
 		} `bson:"config" json:"config"`
 	} `bson:"uptime_tests" json:"uptime_tests"`
 	Proxy struct {
+		PreserveHostHeader          bool                          `bson:"preserve_host_header" json:"preserve_host_header"`
 		ListenPath                  string                        `bson:"listen_path" json:"listen_path"`
 		TargetURL                   string                        `bson:"target_url" json:"target_url"`
 		StripListenPath             bool                          `bson:"strip_listen_path" json:"strip_listen_path"`
