@@ -184,6 +184,7 @@ type ServiceDiscoveryConfiguration struct {
 	ParentDataPath      string `bson:"parent_data_path" json:"parent_data_path"`
 	DataPath            string `bson:"data_path" json:"data_path"`
 	PortDataPath        string `bson:"port_data_path" json:"port_data_path"`
+	TargetPath          string `bson:"target_path" json:"target_path"`
 	UseTargetList       bool   `bson:"use_target_list" json:"use_target_list"`
 	CacheTimeout        int64  `bson:"cache_timeout" json:"cache_timeout"`
 	EndpointReturnsList bool   `bson:"endpoint_returns_list" json:"endpoint_returns_list"`
