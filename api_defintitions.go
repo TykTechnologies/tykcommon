@@ -206,7 +206,11 @@ type APIDefinition struct {
 	} `bson:"oauth_meta" json:"oauth_meta"`
 	Auth struct {
 		UseParam       bool   `mapstructure:"use_param" bson:"use_param" json:"use_param"`
+		ParamName      string `mapstructure:"param_name" bson:"param_name" json:"param_name"`
 		UseCookie      bool   `mapstructure:"use_cookie" bson:"use_cookie" json:"use_cookie"`
+		CookieName     string `mapstructure:"cookie_name" bson:"cookie_name" json:"cookie_name"`
+		CookieHashKey  []byte `mapstructure:"cookie_hash_key" bson:"cookie_hash_key" json:"cookie_hash_key"`
+		CookieBlockKey []byte `mapstructure:"cookie_block_key" bson:"cookie_block_key" json:"cookie_block_key"`
 		AuthHeaderName string `mapstructure:"auth_header_name" bson:"auth_header_name" json:"auth_header_name"`
 	} `bson:"auth" json:"auth"`
 	UseBasicAuth            bool                 `bson:"use_basic_auth" json:"use_basic_auth"`
