@@ -162,6 +162,7 @@ type CacheOptions struct {
 	CacheTimeout               int64 `bson:"cache_timeout" json:"cache_timeout"`
 	EnableCache                bool  `bson:"enable_cache" json:"enable_cache"`
 	CacheAllSafeRequests       bool  `bson:"cache_all_safe_requests" json:"cache_all_safe_requests"`
+	CacheOnlyResponseCodes     []int `bson:"cache_response_codes" json:"cache_response_codes"`
 	EnableUpstreamCacheControl bool  `bson:"enable_upstream_cache_control" json:"enable_upstream_cache_control"`
 }
 
