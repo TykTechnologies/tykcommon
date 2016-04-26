@@ -191,6 +191,16 @@ type ServiceDiscoveryConfiguration struct {
 	EndpointReturnsList bool   `bson:"endpoint_returns_list" json:"endpoint_returns_list"`
 }
 
+type OIDProviderConfig struct {
+	Issuer    string            `bson:"issuer" json:"issuer"`
+	ClientIDs map[string]string `bson:"client_ids" json:"client_ids"`
+}
+
+type OpenIDOptions struct {
+	Providers         []OIDProviderConfig `bson:"providers" json:"providers"`
+	IdentityBaseField string              `bson:"identity_base_field" json:"identity_base_field"`
+}
+
 // APIDefinition represents the configuration for a single proxied API and it's versions.
 type APIDefinition struct {
 	Id               bson.ObjectId `bson:"_id,omitempty" json:"id,omitempty"`
@@ -200,6 +210,8 @@ type APIDefinition struct {
 	OrgID            string        `bson:"org_id" json:"org_id"`
 	UseKeylessAccess bool          `bson:"use_keyless" json:"use_keyless"`
 	UseOauth2        bool          `bson:"use_oauth2" json:"use_oauth2"`
+	UseOpenID        bool          `bson:"use_openid" json:"use_openid"`
+	OpenIDOptions    OpenIDOptions `bson:"openid_options" json:"openid_options"`
 	Oauth2Meta       struct {
 		AllowedAccessTypes     []osin.AccessRequestType    `bson:"allowed_access_types" json:"allowed_access_types"`
 		AllowedAuthorizeTypes  []osin.AuthorizeRequestType `bson:"allowed_authorize_types" json:"allowed_authorize_types"`
