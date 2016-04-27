@@ -199,6 +199,7 @@ type OIDProviderConfig struct {
 type OpenIDOptions struct {
 	Providers         []OIDProviderConfig `bson:"providers" json:"providers"`
 	IdentityBaseField string              `bson:"identity_base_field" json:"identity_base_field"`
+	SegregateByClient bool                `bson:"segregate_by_client" json:"segregate_by_client"`
 }
 
 // APIDefinition represents the configuration for a single proxied API and it's versions.
