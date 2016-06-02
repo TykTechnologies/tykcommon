@@ -95,6 +95,12 @@ type VirtualMeta struct {
 	UseSession           bool   `bson:"use_session" json:"use_session"`
 }
 
+type MethodTransformMeta struct {
+	Path     string `bson:"path" json:"path"`
+	Method   string `bson:"method" json:"method"`
+	ToMethod string `bson:"to_method" json:"to_method"`
+}
+
 type VersionInfo struct {
 	Name    string `bson:"name" json:"name"`
 	Expires string `bson:"expires" json:"expires"`
@@ -118,6 +124,7 @@ type VersionInfo struct {
 		URLRewrite              []URLRewriteMeta      `bson:"url_rewrites" json:"url_rewrites"`
 		Virtual                 []VirtualMeta         `bson:"virtual" json:"virtual"`
 		SizeLimit               []RequestSizeMeta     `bson:"size_limits" json:"size_limits"`
+		MethodTransforms        []MethodTransformMeta `bson:"method_transforms" json:"method_transforms"`
 	} `bson:"extended_paths" json:"extended_paths"`
 	GlobalHeaders       map[string]string `bson:"global_headers" json:"global_headers"`
 	GlobalHeadersRemove []string          `bson:"global_headers_remove" json:"global_headers_remove"`
@@ -198,7 +205,6 @@ type OIDProviderConfig struct {
 
 type OpenIDOptions struct {
 	Providers         []OIDProviderConfig `bson:"providers" json:"providers"`
-	IdentityBaseField string              `bson:"identity_base_field" json:"identity_base_field"`
 	SegregateByClient bool                `bson:"segregate_by_client" json:"segregate_by_client"`
 }
 
