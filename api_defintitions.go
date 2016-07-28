@@ -233,6 +233,7 @@ type APIDefinition struct {
 	} `bson:"auth" json:"auth"`
 	UseBasicAuth            bool                 `bson:"use_basic_auth" json:"use_basic_auth"`
 	EnableJWT               bool                 `bson:"enable_jwt" json:"enable_jwt"`
+	EnableCoProcessAuth               bool                 `bson:"enable_coprocess_auth" json:"enable_coprocess_auth"`
 	JWTSigningMethod        string               `bson:"jwt_signing_method" json:"jwt_signing_method"`
 	JWTSource               string               `bson:"jwt_source" json:"jwt_source"`
 	JWTIdentityBaseField    string               `bson:"jwt_identit_base_field" json:"jwt_identity_base_field"`
