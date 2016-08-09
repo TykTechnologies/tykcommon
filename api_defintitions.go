@@ -101,6 +101,23 @@ type MethodTransformMeta struct {
 	ToMethod string `bson:"to_method" json:"to_method"`
 }
 
+type ExtendedPathsSet struct {
+	Ignored                 []EndPointMeta        `bson:"ignored" json:"ignored,omitempty"`
+	WhiteList               []EndPointMeta        `bson:"white_list" json:"white_list,omitempty"`
+	BlackList               []EndPointMeta        `bson:"black_list" json:"black_list,omitempty"`
+	Cached                  []string              `bson:"cache" json:"cache,omitempty"`
+	Transform               []TemplateMeta        `bson:"transform" json:"transform,omitempty"`
+	TransformResponse       []TemplateMeta        `bson:"transform_response" json:"transform_response,omitempty"`
+	TransformHeader         []HeaderInjectionMeta `bson:"transform_headers" json:"transform_headers,omitempty"`
+	TransformResponseHeader []HeaderInjectionMeta `bson:"transform_response_headers" json:"transform_response_headers,omitempty"`
+	HardTimeouts            []HardTimeoutMeta     `bson:"hard_timeouts" json:"hard_timeouts,omitempty"`
+	CircuitBreaker          []CircuitBreakerMeta  `bson:"circuit_breakers" json:"circuit_breakers,omitempty"`
+	URLRewrite              []URLRewriteMeta      `bson:"url_rewrites" json:"url_rewrites,omitempty"`
+	Virtual                 []VirtualMeta         `bson:"virtual" json:"virtual,omitempty"`
+	SizeLimit               []RequestSizeMeta     `bson:"size_limits" json:"size_limits,omitempty"`
+	MethodTransforms        []MethodTransformMeta `bson:"method_transforms" json:"method_transforms,omitempty"`
+}
+
 type VersionInfo struct {
 	Name    string `bson:"name" json:"name"`
 	Expires string `bson:"expires" json:"expires"`
@@ -109,23 +126,8 @@ type VersionInfo struct {
 		WhiteList []string `bson:"white_list" json:"white_list"`
 		BlackList []string `bson:"black_list" json:"black_list"`
 	} `bson:"paths" json:"paths"`
-	UseExtendedPaths bool `bson:"use_extended_paths" json:"use_extended_paths"`
-	ExtendedPaths    struct {
-		Ignored                 []EndPointMeta        `bson:"ignored" json:"ignored"`
-		WhiteList               []EndPointMeta        `bson:"white_list" json:"white_list"`
-		BlackList               []EndPointMeta        `bson:"black_list" json:"black_list"`
-		Cached                  []string              `bson:"cache" json:"cache"`
-		Transform               []TemplateMeta        `bson:"transform" json:"transform"`
-		TransformResponse       []TemplateMeta        `bson:"transform_response" json:"transform_response"`
-		TransformHeader         []HeaderInjectionMeta `bson:"transform_headers" json:"transform_headers"`
-		TransformResponseHeader []HeaderInjectionMeta `bson:"transform_response_headers" json:"transform_response_headers"`
-		HardTimeouts            []HardTimeoutMeta     `bson:"hard_timeouts" json:"hard_timeouts"`
-		CircuitBreaker          []CircuitBreakerMeta  `bson:"circuit_breakers" json:"circuit_breakers"`
-		URLRewrite              []URLRewriteMeta      `bson:"url_rewrites" json:"url_rewrites"`
-		Virtual                 []VirtualMeta         `bson:"virtual" json:"virtual"`
-		SizeLimit               []RequestSizeMeta     `bson:"size_limits" json:"size_limits"`
-		MethodTransforms        []MethodTransformMeta `bson:"method_transforms" json:"method_transforms"`
-	} `bson:"extended_paths" json:"extended_paths"`
+	UseExtendedPaths    bool              `bson:"use_extended_paths" json:"use_extended_paths"`
+	ExtendedPaths       ExtendedPathsSet  `bson:"extended_paths" json:"extended_paths"`
 	GlobalHeaders       map[string]string `bson:"global_headers" json:"global_headers"`
 	GlobalHeadersRemove []string          `bson:"global_headers_remove" json:"global_headers_remove"`
 	GlobalSizeLimit     int64             `bson:"global_size_limit" json:"global_size_limit"`
