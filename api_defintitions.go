@@ -15,6 +15,8 @@ type TykEventHandlerName string // A type for handler codes in API definitions
 type EndpointMethodAction string
 type TemplateMode string
 
+type MiddlewareDriver string
+
 const (
 	NoAction EndpointMethodAction = "no_action"
 	Reply    EndpointMethodAction = "reply"
@@ -24,6 +26,9 @@ const (
 
 	RequestXML  RequestInputType = "xml"
 	RequestJSON RequestInputType = "json"
+
+	OttoDriver MiddlewareDriver = "otto"
+	PythonDriver MiddlewareDriver = "python"
 )
 
 type EndpointMethodMeta struct {
@@ -165,6 +170,7 @@ type MiddlewareSection struct {
 	Pre      []MiddlewareDefinition `bson:"pre" json:"pre"`
 	Post     []MiddlewareDefinition `bson:"post" json:"post"`
 	Response []MiddlewareDefinition `bson:"response" json:"response"`
+	Driver MiddlewareDriver `bson:"driver" json:"driver"`
 }
 
 type CacheOptions struct {
