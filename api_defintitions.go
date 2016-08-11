@@ -16,6 +16,7 @@ type EndpointMethodAction string
 type TemplateMode string
 
 type MiddlewareDriver string
+type AuthTypeEnum string
 
 const (
 	NoAction EndpointMethodAction = "no_action"
@@ -27,8 +28,17 @@ const (
 	RequestXML  RequestInputType = "xml"
 	RequestJSON RequestInputType = "json"
 
-	OttoDriver MiddlewareDriver = "otto"
+	OttoDriver   MiddlewareDriver = "otto"
 	PythonDriver MiddlewareDriver = "python"
+
+	// For multi-type auth
+	AuthToken     AuthTypeEnum = "auth_token"
+	HMACKey       AuthTypeEnum = "hmac_key"
+	BasicAuthUser AuthTypeEnum = "basic_auth_user"
+	JWTClaim      AuthTypeEnum = "jwt_claim"
+	OIDCUser      AuthTypeEnum = "oidc_user"
+	OAuthKey      AuthTypeEnum = "oauth_key"
+	UnsetAuth     AuthTypeEnum = ""
 )
 
 type EndpointMethodMeta struct {
@@ -243,7 +253,8 @@ type APIDefinition struct {
 	} `bson:"auth" json:"auth"`
 	UseBasicAuth            bool                 `bson:"use_basic_auth" json:"use_basic_auth"`
 	EnableJWT               bool                 `bson:"enable_jwt" json:"enable_jwt"`
-	EnableCoProcessAuth               bool                 `bson:"enable_coprocess_auth" json:"enable_coprocess_auth"`
+	UseStandardAuth         bool                 `bson:"use_standard_auth" json:"use_standard_auth"`
+	EnableCoProcessAuth     bool                 `bson:"enable_coprocess_auth" json:"enable_coprocess_auth"`
 	JWTSigningMethod        string               `bson:"jwt_signing_method" json:"jwt_signing_method"`
 	JWTSource               string               `bson:"jwt_source" json:"jwt_source"`
 	JWTIdentityBaseField    string               `bson:"jwt_identit_base_field" json:"jwt_identity_base_field"`
@@ -252,6 +263,7 @@ type APIDefinition struct {
 	NotificationsDetails    NotificationsManager `bson:"notifications" json:"notifications"`
 	EnableSignatureChecking bool                 `bson:"enable_signature_checking" json:"enable_signature_checking"`
 	HmacAllowedClockSkew    float64              `bson:"hmac_allowed_clock_skew" json:"hmac_allowed_clock_skew"`
+	BaseIdentityProvidedBy  AuthTypeEnum         `bson:"base_identity_provided_by" json:"base_identity_provided_by"`
 	VersionDefinition       struct {
 		Location string `bson:"location" json:"location"`
 		Key      string `bson:"key" json:"key"`
@@ -278,6 +290,8 @@ type APIDefinition struct {
 		CheckHostAgainstUptimeTests bool                          `bson:"check_host_against_uptime_tests" json:"check_host_against_uptime_tests"`
 		ServiceDiscovery            ServiceDiscoveryConfiguration `bson:"service_discovery" json:"service_discovery"`
 	} `bson:"proxy" json:"proxy"`
+	DisableRateLimit          bool                   `bson:"disable_rate_limit" json:"disable_rate_limit"`
+	DisableQuota              bool                   `bson:"disable_quota" json:"disable_quota"`
 	CustomMiddleware          MiddlewareSection      `bson:"custom_middleware" json:"custom_middleware"`
 	CacheOptions              CacheOptions           `bson:"cache_options" json:"cache_options"`
 	SessionLifetime           int64                  `bson:"session_lifetime" json:"session_lifetime"`
