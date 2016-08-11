@@ -169,6 +169,7 @@ type MiddlewareDefinition struct {
 type MiddlewareSection struct {
 	Pre      []MiddlewareDefinition `bson:"pre" json:"pre"`
 	Post     []MiddlewareDefinition `bson:"post" json:"post"`
+	PostKeyAuth []MiddlewareDefinition `bson:"post_key_auth" json:"post_key_auth"`
 	AuthCheck MiddlewareDefinition `bson:"auth_check" json:"auth_check"`
 	Response []MiddlewareDefinition `bson:"response" json:"response"`
 	Driver MiddlewareDriver `bson:"driver" json:"driver"`
