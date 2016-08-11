@@ -289,6 +289,8 @@ type APIDefinition struct {
 		CheckHostAgainstUptimeTests bool                          `bson:"check_host_against_uptime_tests" json:"check_host_against_uptime_tests"`
 		ServiceDiscovery            ServiceDiscoveryConfiguration `bson:"service_discovery" json:"service_discovery"`
 	} `bson:"proxy" json:"proxy"`
+	DisableRateLimit          bool                   `bson:"disable_rate_limit" json:"disable_rate_limit"`
+	DisableQuota              bool                   `bson:"disable_quota" json:"disable_quota"`
 	CustomMiddleware          MiddlewareSection      `bson:"custom_middleware" json:"custom_middleware"`
 	CacheOptions              CacheOptions           `bson:"cache_options" json:"cache_options"`
 	SessionLifetime           int64                  `bson:"session_lifetime" json:"session_lifetime"`
