@@ -177,12 +177,12 @@ type MiddlewareDefinition struct {
 }
 
 type MiddlewareSection struct {
-	Pre      []MiddlewareDefinition `bson:"pre" json:"pre"`
-	Post     []MiddlewareDefinition `bson:"post" json:"post"`
+	Pre         []MiddlewareDefinition `bson:"pre" json:"pre"`
+	Post        []MiddlewareDefinition `bson:"post" json:"post"`
 	PostKeyAuth []MiddlewareDefinition `bson:"post_key_auth" json:"post_key_auth"`
-	AuthCheck MiddlewareDefinition `bson:"auth_check" json:"auth_check"`
-	Response []MiddlewareDefinition `bson:"response" json:"response"`
-	Driver MiddlewareDriver `bson:"driver" json:"driver"`
+	AuthCheck   MiddlewareDefinition   `bson:"auth_check" json:"auth_check"`
+	Response    []MiddlewareDefinition `bson:"response" json:"response"`
+	Driver      MiddlewareDriver       `bson:"driver" json:"driver"`
 }
 
 type CacheOptions struct {
@@ -286,7 +286,8 @@ type APIDefinition struct {
 		TargetURL                   string                        `bson:"target_url" json:"target_url"`
 		StripListenPath             bool                          `bson:"strip_listen_path" json:"strip_listen_path"`
 		EnableLoadBalancing         bool                          `bson:"enable_load_balancing" json:"enable_load_balancing"`
-		TargetList                  []string                      `bson:"target_list" json:"target_list"`
+		Targets                     []string                      `bson:"target_list" json:"target_list"`
+		StructuredTargetList        HostList                      `bson:"-" json:"-"`
 		CheckHostAgainstUptimeTests bool                          `bson:"check_host_against_uptime_tests" json:"check_host_against_uptime_tests"`
 		ServiceDiscovery            ServiceDiscoveryConfiguration `bson:"service_discovery" json:"service_discovery"`
 	} `bson:"proxy" json:"proxy"`
