@@ -32,6 +32,10 @@ func (h *HostList) Set(newList []string) {
 	h.hosts = newList
 }
 
+func (h *HostList) All() []string{
+	return h.hosts
+}
+
 func (h *HostList) GetIndex(i int) (string, error) {
 	h.hMutex.RLock()
 	defer h.hMutex.RUnlock()
