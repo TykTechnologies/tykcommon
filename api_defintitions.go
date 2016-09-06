@@ -16,6 +16,7 @@ type EndpointMethodAction string
 type TemplateMode string
 
 type MiddlewareDriver string
+type IdExtractorSource string
 type AuthTypeEnum string
 
 const (
@@ -30,6 +31,12 @@ const (
 
 	OttoDriver   MiddlewareDriver = "otto"
 	PythonDriver MiddlewareDriver = "python"
+	LuaDriver MiddlewareDriver = "lua"
+
+	BodyIdExtractorSource IdExtractorSource = "body"
+	HeaderIdExtractorSource IdExtractorSource = "header"
+	QuerystringIdExtractorSource IdExtractorSource = "querystring"
+	FormIdExtractorSource IdExtractorSource = "form"
 
 	// For multi-type auth
 	AuthToken     AuthTypeEnum = "auth_token"
