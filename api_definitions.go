@@ -17,6 +17,7 @@ type TemplateMode string
 
 type MiddlewareDriver string
 type IdExtractorSource string
+type IdExtractorType string
 type AuthTypeEnum string
 
 const (
@@ -33,10 +34,12 @@ const (
 	PythonDriver MiddlewareDriver = "python"
 	LuaDriver MiddlewareDriver = "lua"
 
-	BodyIdExtractorSource IdExtractorSource = "body"
-	HeaderIdExtractorSource IdExtractorSource = "header"
-	QuerystringIdExtractorSource IdExtractorSource = "querystring"
-	FormIdExtractorSource IdExtractorSource = "form"
+	BodySource IdExtractorSource = "body"
+	HeaderSource IdExtractorSource = "header"
+	QuerystringSource IdExtractorSource = "querystring"
+	FormSource IdExtractorSource = "form"
+
+	ValueExtractor IdExtractorType = "value"
 
 	// For multi-type auth
 	AuthToken     AuthTypeEnum = "auth_token"
@@ -183,6 +186,12 @@ type MiddlewareDefinition struct {
 	RequireSession bool   `bson:"require_session" json:"require_session"`
 }
 
+type MiddlewareIdExtractor struct {
+	ExtractFrom	IdExtractorSource	`bson:"extract_from" json:"extract_from"`
+	ExtractWith IdExtractorType	`bson:"extract_with" json:"extract_with"`
+	ExtractorConfig map[string]interface{}	`bson:"extractor_config" json:"extractor_config"`
+}
+
 type MiddlewareSection struct {
 	Pre         []MiddlewareDefinition `bson:"pre" json:"pre"`
 	Post        []MiddlewareDefinition `bson:"post" json:"post"`
@@ -190,6 +199,7 @@ type MiddlewareSection struct {
 	AuthCheck   MiddlewareDefinition   `bson:"auth_check" json:"auth_check"`
 	Response    []MiddlewareDefinition `bson:"response" json:"response"`
 	Driver      MiddlewareDriver       `bson:"driver" json:"driver"`
+	IdExtractor MiddlewareIdExtractor	 `bson:"id_extractor" json:"id_extractor"`
 }
 
 type CacheOptions struct {
