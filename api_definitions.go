@@ -189,8 +189,8 @@ type MiddlewareDefinition struct {
 type MiddlewareIdExtractor struct {
 	ExtractFrom	IdExtractorSource	`bson:"extract_from" json:"extract_from"`
 	ExtractWith IdExtractorType	`bson:"extract_with" json:"extract_with"`
-	ExtractorTtl int64 `bson:"ttl" json:"ttl"`
 	ExtractorConfig map[string]interface{}	`bson:"extractor_config" json:"extractor_config"`
+	Extractor interface{}	`bson:"-" json:"-"`
 }
 
 type MiddlewareSection struct {
