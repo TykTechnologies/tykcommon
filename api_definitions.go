@@ -33,6 +33,7 @@ const (
 	OttoDriver   MiddlewareDriver = "otto"
 	PythonDriver MiddlewareDriver = "python"
 	LuaDriver MiddlewareDriver = "lua"
+	GrpcDriver MiddlewareDriver = "grpc"
 
 	BodySource IdExtractorSource = "body"
 	HeaderSource IdExtractorSource = "header"
