@@ -41,6 +41,7 @@ const (
 	FormSource IdExtractorSource = "form"
 
 	ValueExtractor IdExtractorType = "value"
+	XPathExtractor IdExtractorType = "xpath"
 
 	// For multi-type auth
 	AuthToken     AuthTypeEnum = "auth_token"
