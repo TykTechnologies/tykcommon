@@ -42,6 +42,7 @@ const (
 
 	ValueExtractor IdExtractorType = "value"
 	XPathExtractor IdExtractorType = "xpath"
+	RegexExtractor IdExtractorType = "regex"
 
 	// For multi-type auth
 	AuthToken     AuthTypeEnum = "auth_token"
