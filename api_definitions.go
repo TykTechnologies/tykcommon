@@ -315,6 +315,7 @@ type APIDefinition struct {
 	DisableRateLimit          bool                   `bson:"disable_rate_limit" json:"disable_rate_limit"`
 	DisableQuota              bool                   `bson:"disable_quota" json:"disable_quota"`
 	CustomMiddleware          MiddlewareSection      `bson:"custom_middleware" json:"custom_middleware"`
+	CustomMiddlewareBundle 	string							 `bson:"custom_middleware_bundle" json:"custom_middleware_bundle"`
 	CacheOptions              CacheOptions           `bson:"cache_options" json:"cache_options"`
 	SessionLifetime           int64                  `bson:"session_lifetime" json:"session_lifetime"`
 	Active                    bool                   `bson:"active" json:"active"`
