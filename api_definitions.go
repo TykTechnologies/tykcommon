@@ -346,6 +346,13 @@ type APIDefinition struct {
 	RawData           map[string]interface{} `bson:"raw_data,omitempty" json:"raw_data,omitempty"` // Not used in actual configuration, loaded by config for plugable arc
 }
 
+type BundleManifest struct {
+	FileList	[]string	`bson:"file_list" json:"file_list"`
+	CustomMiddleware MiddlewareSection	`bson:"custom_middleware" json:"custom_middleware"`
+	Checksum	string	`bson:"checksum" json:"checksum"`
+	Signature string	`bson:"signature" json:"signature"`
+}
+
 // Clean will URL encode map[string]struct variables for saving
 func (a *APIDefinition) EncodeForDB() {
 	new_version := make(map[string]VersionInfo)
