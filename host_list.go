@@ -51,6 +51,10 @@ func (h *HostList) GetIndex(i int) (string, error) {
 }
 
 func (h *HostList) Len() int {
+	if h == nil {
+		return 0
+	}
+
 	h.hMutex.RLock()
 	defer h.hMutex.RUnlock()
 
