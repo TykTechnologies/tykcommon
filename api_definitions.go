@@ -93,6 +93,11 @@ type HardTimeoutMeta struct {
 	TimeOut int    `bson:"timeout" json:"timeout"`
 }
 
+type TrackEndpointMeta struct {
+	Path    string `bson:"path" json:"path"`
+	Method  string `bson:"method" json:"method"`
+}
+
 type RequestSizeMeta struct {
 	Path      string `bson:"path" json:"path"`
 	Method    string `bson:"method" json:"method"`
@@ -144,6 +149,8 @@ type ExtendedPathsSet struct {
 	Virtual                 []VirtualMeta         `bson:"virtual" json:"virtual,omitempty"`
 	SizeLimit               []RequestSizeMeta     `bson:"size_limits" json:"size_limits,omitempty"`
 	MethodTransforms        []MethodTransformMeta `bson:"method_transforms" json:"method_transforms,omitempty"`
+	TrackEndpoints          []TrackEndpointMeta `bson:"track_endpoints" json:"track_endpoints,omitempty"`
+	DoNotTrackEndpoints 	[]TrackEndpointMeta `bson:"do_not_track_endpoints" json:"do_not_track_endpoints,omitempty"`
 }
 
 type VersionInfo struct {
