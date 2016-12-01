@@ -1,7 +1,7 @@
 package tykcommon
 
 import (
-	"github.com/sirupsen/logrus"
+	"github.com/Sirupsen/logrus"
 )
 
 var log = logrus.New()
