@@ -1,6 +1,6 @@
 package coprocess
 
-const(
+const (
 	_ = iota
 	PreHook
 	PostHook
