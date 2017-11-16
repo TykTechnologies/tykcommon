@@ -351,6 +351,7 @@ type APIDefinition struct {
 	DoNotTrack        bool                   `bson:"do_not_track" json:"do_not_track"`
 	Tags              []string               `bson:"tags" json:"tags"`
 	EnableContextVars bool                   `bson:"enable_context_vars" json:"enable_context_vars"`
+	StripAuthData     bool                   `bson:"strip_auth_data" json:"strip_auth_data"`
 	RawData           map[string]interface{} `bson:"raw_data,omitempty" json:"raw_data,omitempty"` // Not used in actual configuration, loaded by config for plugable arc
 }
 
